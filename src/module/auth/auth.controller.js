@@ -7,6 +7,9 @@ import {
   signIn,
   signUp,
   verifyAccount,
+  enableTwoStepVerification,
+  verifyEnableTwoStepVerification,
+  verifyLoginOtp,
 } from "./auth.service.js";
 import { auth } from "../../common/middleware/index.js";
 import { validation } from "../../common/service/validation.service.js";
@@ -40,6 +43,24 @@ router.put("/verifyAccount", async (req, res) => {
 });
 router.get("/getAllUsers", auth, checkRole(["1"]), async (req, res) => {
   let data = await getAllUsers();
+  res.json(data);
+});
+// Enable Two-Step Verification
+router.post("/enable-2fa", auth, async (req, res) => {
+  const data = await enableTwoStepVerification(req.user.id);
+  res.json(data);
+});
+
+// Verify Enable Two-Step Verification
+router.post("/verify-enable-2fa", auth, async (req, res) => {
+  const data = await verifyEnableTwoStepVerification(req.body, req.user.id);
+
+  res.json(data);
+});
+
+// Verify Login OTP
+router.post("/verify-login-otp", async (req, res) => {
+  const data = await verifyLoginOtp(req.body);
   res.json(data);
 });
 

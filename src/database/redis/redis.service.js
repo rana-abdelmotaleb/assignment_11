@@ -23,3 +23,6 @@ export const expire = (key, seconds) => {
 export const ttl = (key) => {
   return client.ttl(key);
 };
+export const incr = (key) => {
+  return client.incr(key);
+};

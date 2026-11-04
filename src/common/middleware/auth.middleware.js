@@ -4,6 +4,11 @@ import { BadRequestException } from "../exciptions/error.exciptions.js";
 
 export const auth = async (req, res, next) => {
   //   console.log(req.headers.authorization);
+  if (!req.headers.authorization) {
+    BadRequestException({
+      message: "token not Found",
+    });
+  }
   let [flag, token] = req.headers.authorization.split(" ");
   //   console.log({ flag, token });
   switch (flag) {

@@ -41,6 +41,15 @@ const userSchema = Schema(
     profileImage: {
       type: String,
     },
+    uniqueName: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    isTwoStepVerificationEnabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true },
 );
